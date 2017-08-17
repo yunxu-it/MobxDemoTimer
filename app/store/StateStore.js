@@ -19,12 +19,13 @@ export default class StateStore {
 
     @action
     suspendTimer() {
-        clearInterval(this.timerInterval)
+        clearInterval(this.timerInterval);
     }
 
     @action
     startTimer() {
         this.timer = 0;
+        this.suspendTimer();
         this.timerInterval = setInterval(() => {
             this.timer += 1;
         }, 100);
