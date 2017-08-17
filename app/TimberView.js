@@ -15,6 +15,10 @@ class TimerView extends Component {
     }
 
     render() {
+        let time = this.statStore.timer;
+        let second = time % 60;
+        let minute = parseInt(time / 60) % 60;
+        let hour = parseInt(time / 3600);
         return (
             <View
                 style={{flex: 1, flexDirection: "column-reverse", justifyContent: "flex-start", alignItems: "center"}}>
@@ -28,10 +32,10 @@ class TimerView extends Component {
                     flexDirection: 'row',
                     justifyContent: "center",
                     alignItems: "flex-end",
-                    marginBottom: 120
+                    marginBottom: 150
                 }}>
-                    <Text style={{fontSize: 120}}>{round2(this.statStore.timer / 10, 0)}</Text>
-                    <Text style={{fontSize: 40, marginBottom: 20}}>.{round2(this.statStore.timer % 10, 1)}0</Text>
+                    <Text
+                        style={{fontSize: 80}}>{hour < 10 ? '0' + hour : hour}:{minute < 10 ? '0' + minute : minute}:{second < 10 ? '0' + second : second}</Text>
                 </View>
             </View>
         );

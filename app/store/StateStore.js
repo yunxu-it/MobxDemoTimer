@@ -28,7 +28,7 @@ export default class StateStore {
         this.suspendTimer();
         this.timerInterval = setInterval(() => {
             this.timer += 1;
-        }, 100);
+        }, 1000);
     }
 }
 
