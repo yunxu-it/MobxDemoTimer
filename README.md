@@ -1,1 +1,0 @@
-### Mobx demo for ReactNative

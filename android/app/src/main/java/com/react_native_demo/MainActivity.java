@@ -1,4 +1,4 @@
-package com.test;
+package com.react_native_demo;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "Test";
+        return "react_native_demo";
     }
 }
