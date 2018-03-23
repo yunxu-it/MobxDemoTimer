@@ -13,10 +13,14 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import HomeScreen from './app/HomeScreen'
+import VideoScreen from './app/VideoScreen'
 
 export default StackNavigator({
   Home: {
     screen: HomeScreen,
+  },
+  Video: {
+    screen: VideoScreen,
   },
 });
 
