@@ -4164,7 +4164,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.1"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -4231,17 +4231,6 @@ react-lifecycles-compat@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-1.0.2.tgz#551d8b1d156346e5fcf30ffac9b32ce3f78b8850"
 
-react-native-af-video-player@^0.1.7:
-  version "0.1.7"
-  resolved "http://registry.npm.taobao.org/react-native-af-video-player/download/react-native-af-video-player-0.1.7.tgz#96c303a7d1531d95e3c8a80341997e16334b6ad8"
-  dependencies:
-    react-native-keep-awake "^2.0.6"
-    react-native-linear-gradient "^2.3.0"
-    react-native-orientation "^3.1.0"
-    react-native-slider "^0.11.0"
-    react-native-vector-icons "^4.4.2"
-    react-native-video "^2.0.0"
-
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-dismiss-keyboard/download/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -4277,12 +4266,6 @@ react-native-safe-area-view@^0.7.0:
   resolved "http://registry.npm.taobao.org/react-native-safe-area-view/download/react-native-safe-area-view-0.7.0.tgz#38f5ab9368d6ef9e5d18ab64212938af3ec39421"
   dependencies:
     hoist-non-react-statics "^2.3.1"
-
-react-native-slider@^0.11.0:
-  version "0.11.0"
-  resolved "http://registry.npm.taobao.org/react-native-slider/download/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"
-  dependencies:
-    prop-types "^15.5.6"
 
 "react-native-tab-view@github:react-navigation/react-native-tab-view":
   version "0.0.74"
