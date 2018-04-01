@@ -48,8 +48,11 @@ class VideoPlayer extends Component {
       fullScreen: false,
       height: Win.height,
       loading: false,
+      // 视频总长度
       duration: 0,
+      // 当前进度
       progress: 0,
+      maxProgressTime: 0,
       currentTime: 0,
       seeking: false,
       renderError: false
@@ -69,11 +72,13 @@ class VideoPlayer extends Component {
   }
 
   onLoad (data) {
+    console.log('onLoad: ' + this.props.maxProgress)
     if (!this.state.loading) return
     this.setState({
       paused: !this.props.autoPlay,
       loading: false,
-      duration: data.duration
+      duration: data.duration,
+      maxProgressTime: this.props.maxProgress
     }, () => {
       if (!this.state.paused) {
         KeepAwake.activate()
@@ -205,6 +210,9 @@ class VideoPlayer extends Component {
     })
   }
 
+  /**
+   * 静音调节
+   */
   toggleMute () {
     this.setState({muted: !this.state.muted})
   }
@@ -218,9 +226,18 @@ class VideoPlayer extends Component {
     const progress = time.currentTime / this.state.duration
     if (!this.state.seeking) {
       this.setState({progress, currentTime: time.currentTime})
-    }
-    if (this.props.onProgress) {
-      this.props.onProgress(time);
+      // 如果当前进度大于已知最大进度，则更改进度
+      if (time.currentTime > this.state.maxProgressTime) {
+        this.setState({
+          maxProgressTime: time.currentTime
+        }, () => {
+          console.log('max progress: ' + this.state.maxProgressTime + ' ')
+        })
+      }
+      // 暴露 onProgress 到外层
+      if (this.props.onProgress) {
+        this.props.onProgress(time)
+      }
     }
   }
 
@@ -351,7 +368,8 @@ VideoPlayer.propTypes = {
   volume: PropTypes.number,
   playInBackground: PropTypes.bool,
   playWhenInactive: PropTypes.bool,
-  lockPortraitOnFsExit: PropTypes.bool
+  lockPortraitOnFsExit: PropTypes.bool,
+  maxProgress: PropTypes.number
 }
 
 VideoPlayer.defaultProps = {
@@ -372,7 +390,8 @@ VideoPlayer.defaultProps = {
   playWhenInactive: false,
   rate: 1,
   volume: 1,
-  lockPortraitOnFsExit: false
+  lockPortraitOnFsExit: false,
+  maxProgress: 0
 }
 
 export { VideoPlayer }
