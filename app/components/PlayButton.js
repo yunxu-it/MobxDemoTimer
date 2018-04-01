@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
 const PlayButton = props => (
   <View style={styles.playContainer}>
     <TouchableOpacity
-      onPress={() => props.onPress()}
-    >
+      onPress={() => props.onPress()}>
       <Icons
         style={styles.playButton}
         name={props.paused ? 'play-circle-outline' : 'pause-circle-outline'}

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 })
 
 class Loading extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       width: new Animated.Value(10),
@@ -28,7 +28,7 @@ class Loading extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Animated.loop(Animated.parallel([
       Animated.sequence([
         Animated.timing(this.state.width, {
@@ -53,14 +53,14 @@ class Loading extends Component {
         })
       ]),
       Animated.sequence([
-        Animated.timing(this.state.translateX, { toValue: 50, easing: Easing.back(1), duration: 1000 }),
-        Animated.timing(this.state.translateX, { toValue: -50, easing: Easing.back(1), duration: 1000 })
+        Animated.timing(this.state.translateX, {toValue: 50, easing: Easing.back(1), duration: 1000}),
+        Animated.timing(this.state.translateX, {toValue: -50, easing: Easing.back(1), duration: 1000})
       ])
     ])).start()
   }
 
-  render() {
-    const { translateX, width } = this.state
+  render () {
+    const {translateX, width} = this.state
     if (this.props.loading) {
       return (
         <View style={styles.container}>
@@ -69,7 +69,7 @@ class Loading extends Component {
             {
               backgroundColor: this.props.theme,
               width,
-              transform: [{ translateX }]
+              transform: [{translateX}]
             }
           ]}
           />

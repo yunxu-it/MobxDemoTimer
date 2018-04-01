@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 })
 
 class Time extends Component {
-  getTime(time) {
+  getTime (time) {
     // format the seconds saved into 00:00:00
     const secs = time % 60
     const s2 = (time - secs) / 60
@@ -25,14 +25,14 @@ class Time extends Component {
     return `${hours}${this.addZeros(mins)}:${this.addZeros(secs)}`
   }
 
-  addZeros(time) {
+  addZeros (time) {
     return (time < 10) ? (`0${time}`) : time
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
-        <Text style={{ color: this.props.theme }}>{this.getTime(parseInt(this.props.time, 10))}</Text>
+        <Text style={{color: this.props.theme}}>{this.getTime(parseInt(this.props.time, 10))}</Text>
       </View>
     )
   }

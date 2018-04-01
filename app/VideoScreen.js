@@ -15,7 +15,8 @@ export default class VideoScreen extends React.Component {
   constructor () {
     super()
     this.state = {
-      fullScreen: false
+      fullScreen: false,
+      maxProgress: 30
     }
   }
 
@@ -27,11 +28,17 @@ export default class VideoScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Video url={url}
+               maxProgress={this.state.maxProgress}
+               title={'测试视频'}
                onProgress={(e) => {
-                 console.log(e)
+                 console.log('onProgress ' + JSON.stringify(e))
                }}
-               ref={(ref) => { this.video = ref }}
+               onSeek={(e) => {
+                 console.log('onSeek ' + JSON.stringify(e))
+               }}
+               ref={(ref) => {this.video = ref}}
         />
+        <Text> 当前最大进度：{this.state.maxProgress}</Text>
       </View>
     )
   }

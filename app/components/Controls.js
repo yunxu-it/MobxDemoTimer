@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 })
 
 class Controls extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       hideControls: false,
@@ -37,34 +37,34 @@ class Controls extends Component {
     this.progressbar = new Animated.Value(2)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.setTimer()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearInterval(this.timer)
   }
 
-  onSeek(pos) {
+  onSeek (pos) {
     this.props.onSeek(pos)
     if (!this.state.seeking) {
-      this.setState({ seeking: true })
+      this.setState({seeking: true})
     }
   }
 
-  onSeekRelease(pos) {
+  onSeekRelease (pos) {
     this.props.onSeekRelease(pos)
-    this.setState({ seeking: false, seconds: 0 })
+    this.setState({seeking: false, seconds: 0})
   }
 
-  setTimer() {
+  setTimer () {
     this.timer = setInterval(() => {
       switch (true) {
         case this.state.seeking:
           // do nothing
           break
         case this.props.paused:
-          if (this.state.seconds > 0) this.setState({ seconds: 0 })
+          if (this.state.seconds > 0) this.setState({seconds: 0})
           break
         case this.state.hideControls:
           break
@@ -72,48 +72,48 @@ class Controls extends Component {
           this.hideControls()
           break
         default:
-          this.setState({ seconds: this.state.seconds + 1 })
+          this.setState({seconds: this.state.seconds + 1})
       }
     }, 1000)
   }
 
-  showControls() {
-    this.setState({ hideControls: false }, () => {
+  showControls () {
+    this.setState({hideControls: false}, () => {
       this.progressbar.setValue(2)
       Animated.parallel([
-        Animated.timing(this.animControls, { toValue: 1, duration: 200 }),
-        Animated.timing(this.scale, { toValue: 1, duration: 200 })
+        Animated.timing(this.animControls, {toValue: 1, duration: 200}),
+        Animated.timing(this.scale, {toValue: 1, duration: 200})
       ]).start()
     })
   }
 
-  hideControls() {
+  hideControls () {
     Animated.parallel([
-      Animated.timing(this.animControls, { toValue: 0, duration: 200 }),
-      Animated.timing(this.scale, { toValue: 0.25, duration: 200 })
-    ]).start(() => this.setState({ hideControls: true, seconds: 0 }))
+      Animated.timing(this.animControls, {toValue: 0, duration: 200}),
+      Animated.timing(this.scale, {toValue: 0.25, duration: 200})
+    ]).start(() => this.setState({hideControls: true, seconds: 0}))
   }
 
-  hiddenControls() {
-    Animated.timing(this.progressbar, { toValue: 0, duration: 200 }).start()
+  hiddenControls () {
+    Animated.timing(this.progressbar, {toValue: 0, duration: 200}).start()
     return (
       <Touchable style={styles.container} onPress={() => this.showControls()}>
-        <Animated.View style={[styles.container, { paddingBottom: this.progressbar }]}>
-          <ProgressBar theme={this.props.theme} progress={this.props.progress} />
+        <Animated.View style={[styles.container, {paddingBottom: this.progressbar}]}>
+          <ProgressBar theme={this.props.theme} progress={this.props.progress}/>
         </Animated.View>
       </Touchable>
     )
   }
 
-  loading() {
+  loading () {
     return (
       <View style={styles.container}>
-        <Loading theme={this.props.theme} />
+        <Loading theme={this.props.theme}/>
       </View>
     )
   }
 
-  displayedControls() {
+  displayedControls () {
     const {
       paused,
       fullscreen,
@@ -132,7 +132,7 @@ class Controls extends Component {
 
     return (
       <Touchable onPress={() => this.hideControls()}>
-        <Animated.View style={[styles.container, { opacity: this.animControls }]}>
+        <Animated.View style={[styles.container, {opacity: this.animControls}]}>
           <TopBar
             title={title}
             logo={logo}
@@ -140,7 +140,7 @@ class Controls extends Component {
             onMorePress={() => onMorePress()}
             theme={theme}
           />
-          <Animated.View style={[styles.flex, { transform: [{ scale: this.scale }] }]}>
+          <Animated.View style={[styles.flex, {transform: [{scale: this.scale}]}]}>
             <PlayButton
               onPress={() => this.props.togglePlay()}
               paused={paused}
@@ -168,7 +168,7 @@ class Controls extends Component {
     )
   }
 
-  render() {
+  render () {
     if (this.props.loading) return this.loading()
     if (this.state.hideControls) {
       return this.hiddenControls()
