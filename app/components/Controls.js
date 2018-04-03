@@ -1,18 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  View,
-  Animated,
-  StyleSheet,
-  TouchableWithoutFeedback as Touchable
-} from 'react-native'
-import {
-  PlayButton,
-  ControlBar,
-  Loading,
-  TopBar,
-  ProgressBar
-} from './index'
+import { Animated, StyleSheet, TouchableWithoutFeedback as Touchable, View } from 'react-native'
+import { ControlBar, Loading, PlayButton, ProgressBar, TopBar } from './index'
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +19,7 @@ class Controls extends Component {
     this.state = {
       hideControls: false,
       seconds: 0,
-      seeking: false
+      seeking: false,
     }
     this.animControls = new Animated.Value(1)
     this.scale = new Animated.Value(1)
@@ -53,6 +42,11 @@ class Controls extends Component {
   }
 
   onSeekRelease (pos) {
+    // 限制拖动，不允许拖动到大于最大进度处
+    console.log('Controls.onSeekRelease(): pos: ' + pos + ' maxProgress: ' + this.props.maxProgress)
+    if (pos > this.props.maxProgress) {
+      pos = this.props.progress
+    }
     this.props.onSeekRelease(pos)
     this.setState({seeking: false, seconds: 0})
   }
@@ -113,6 +107,18 @@ class Controls extends Component {
     )
   }
 
+  togglePlay () {
+    // 根据上次进度播放
+    let latestProgress = this.props.latestProgress
+    if (latestProgress > 0) {
+      console.log('Controls.togglePlay(): ' + this.props.latestProgress + ' ' + this.props.duration)
+      this.onSeekRelease(latestProgress)
+      this.props.latestProgress = 0
+    }
+
+    this.props.togglePlay()
+  }
+
   displayedControls () {
     const {
       paused,
@@ -142,7 +148,7 @@ class Controls extends Component {
           />
           <Animated.View style={[styles.flex, {transform: [{scale: this.scale}]}]}>
             <PlayButton
-              onPress={() => this.props.togglePlay()}
+              onPress={() => this.togglePlay()}
               paused={paused}
               loading={loading}
               theme={theme}
@@ -151,7 +157,7 @@ class Controls extends Component {
           <ControlBar
             toggleFS={() => this.props.toggleFS()}
             toggleMute={() => this.props.toggleMute()}
-            togglePlay={() => this.props.togglePlay()}
+            togglePlay={() => this.togglePlay()}
             muted={muted}
             paused={paused}
             fullscreen={fullscreen}
@@ -195,7 +201,9 @@ Controls.propTypes = {
   duration: PropTypes.number,
   title: PropTypes.string,
   logo: PropTypes.string,
-  theme: PropTypes.string
+  theme: PropTypes.string,
+  latestProgress: PropTypes.number,
+  maxProgress: PropTypes.number
 }
 
 Controls.defaultProps = {
@@ -216,7 +224,9 @@ Controls.defaultProps = {
   duration: 0,
   title: '',
   logo: undefined,
-  theme: null
+  theme: null,
+  latestProgress: 0,
+  maxProgress: 0
 }
 
 export { Controls }

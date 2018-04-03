@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-  BackHandler,
-  Image,
-  Alert
-} from 'react-native'
+import { Alert, BackHandler, Dimensions, Image, StatusBar, StyleSheet, Text, View } from 'react-native'
 import Video from 'react-native-video'
 import KeepAwake from 'react-native-keep-awake'
 import Orientation from 'react-native-orientation'
@@ -52,7 +43,8 @@ class VideoPlayer extends Component {
       duration: 0,
       // 当前进度
       progress: 0,
-      maxProgressTime: 0,
+      maxProgress: 0,
+      latestProgress: 0,
       currentTime: 0,
       seeking: false,
       renderError: false
@@ -72,13 +64,13 @@ class VideoPlayer extends Component {
   }
 
   onLoad (data) {
-    console.log('onLoad: ' + this.props.maxProgress)
     if (!this.state.loading) return
     this.setState({
       paused: !this.props.autoPlay,
       loading: false,
       duration: data.duration,
-      maxProgressTime: this.props.maxProgress
+      maxProgress: this.props.maxProgress,
+      latestProgress: this.props.latestProgress
     }, () => {
       if (!this.state.paused) {
         KeepAwake.activate()
@@ -136,6 +128,7 @@ class VideoPlayer extends Component {
   }
 
   onSeekRelease (pos) {
+    console.log('VideoPlayer.onSeekRelease(): ' + pos)
     const newPosition = pos * this.state.duration
     this.setState({progress: pos, seeking: false}, () => {
       this.player.seek(newPosition)
@@ -227,16 +220,16 @@ class VideoPlayer extends Component {
     if (!this.state.seeking) {
       this.setState({progress, currentTime: time.currentTime})
       // 如果当前进度大于已知最大进度，则更改进度
-      if (time.currentTime > this.state.maxProgressTime) {
+      if (progress > this.state.maxProgress) {
         this.setState({
-          maxProgressTime: time.currentTime
+          maxProgress: progress
         }, () => {
-          console.log('max progress: ' + this.state.maxProgressTime + ' ')
+          console.log('max progress: ' + this.state.maxProgress + ' ')
         })
       }
       // 暴露 onProgress 到外层
       if (this.props.onProgress) {
-        this.props.onProgress(time)
+        this.props.onProgress(time, this.state.maxProgress)
       }
     }
   }
@@ -330,6 +323,8 @@ class VideoPlayer extends Component {
           onSeek={val => this.seek(val)}
           onSeekRelease={pos => this.onSeekRelease(pos)}
           progress={progress}
+          maxProgress={this.state.maxProgress}
+          latestProgress={this.state.latestProgress}
           currentTime={currentTime}
           duration={duration}
           logo={logo}
