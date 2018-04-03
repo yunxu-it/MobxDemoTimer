@@ -4,18 +4,21 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import HomeScreen from './app/HomeScreen'
 
 export default StackNavigator({
   Home: {
     screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
   },
-});
+})
