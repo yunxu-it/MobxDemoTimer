@@ -4,13 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import React from 'react'
 import { StackNavigator } from 'react-navigation'
 import HomeScreen from './app/HomeScreen'
 
