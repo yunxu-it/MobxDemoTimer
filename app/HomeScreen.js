@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
   edit_view: {
     paddingTop: 8,
     paddingBottom: 8,
+    alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: 'white'
   },
@@ -219,11 +220,12 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   submit: {
-    fontSize: 16,
-    padding: px2dp(16),
-    height: px2dp(80),
+    fontSize: 14,
+    padding: px2dp(8),
+    height: px2dp(54),
     backgroundColor: Color.primary_color,
     borderRadius: px2dp(16),
+    overflow: 'hidden',
     color: 'white'
   }
 })

@@ -12,8 +12,6 @@ export const px2dp = (px) => {
   return Math.round(px * scale + 1)
 }
 
-
-
 const Constant = {
   // 成功标志
   flag_success: 'success',
@@ -38,7 +36,7 @@ export default Constant
 
 export const gStyles = StyleSheet.create({
   icon: {
-    width: 24,
-    height: 24
+    width: px2dp(30),
+    height: px2dp(30)
   }
 })
