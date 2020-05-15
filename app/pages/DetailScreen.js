@@ -1,12 +1,25 @@
-import { Button, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
 
-export default function ({ navigation }) {
+export function ProfileScreen ({ route }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={styles.h1}>Hello {route.params?.id || 'Unknown'}!</Text>
+      <Text style={styles.h1}>
+        年龄：{' '}
+        {route.params?.age ? route.params.age + ' ' + typeof route.params.age : 'undefined'}
+      </Text>
+      <Text style={styles.h1}>
+        描述：{' '}
+        {route.params?.age ? route.params.content : 'undefined'}
+      </Text>
+    </View>
+  )
+}
 
-  return <View>
-    <Button
-      title="回去"
-      onPress={() => navigation.goBack()}
-    />
-  </View>
+const styles = {
+  h1: {
+    fontSize: 20,
+    color: '#333333'
+  }
 }
